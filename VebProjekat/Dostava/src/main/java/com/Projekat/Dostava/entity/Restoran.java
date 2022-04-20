@@ -23,7 +23,13 @@ public class Restoran {
         Ime = ime;
         Tip_restorana = tip_restorana;
     }
+    public Long getId() {
+        return Id;
+    }
 
+    public void setId(Long id) {
+        Id = id;
+    }
     public String getIme() {
         return Ime;
     }

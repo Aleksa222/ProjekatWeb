@@ -9,20 +9,22 @@ public class Menadzer extends Korisnik{
 
 
     @Column
-    private String zaduzenje;
+    private Restoran restoran;
 
     public Menadzer() {
     }
 
-    public Menadzer(String zaduzenje) {
-        this.zaduzenje = zaduzenje;
+    public Menadzer(Restoran restoran) {
+        this.restoran = restoran;
     }
 
-    public String getZaduzenje() {
-        return zaduzenje;
+    public Restoran getRestoran(){
+        return restoran;
     }
 
-    public void setZaduzenje(String zaduzenje) {
-        this.zaduzenje = zaduzenje;
+    public void setRestoran(Restoran restoran)
+    {
+        this.restoran = restoran;
     }
 }
+

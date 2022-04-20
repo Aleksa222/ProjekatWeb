@@ -13,8 +13,10 @@ public class Artikal {
     @Column
     private double Cena;
     @Enumerated(EnumType.STRING)
+    @Column
     private Enum_tip tip;
     @Enumerated(EnumType.STRING)
+    @Column
     private Enum_kolicina kolicina;
 
     @Column
@@ -31,6 +33,14 @@ public class Artikal {
 
     public Artikal(){
 
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public String getNaziv() {

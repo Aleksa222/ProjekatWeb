@@ -11,9 +11,9 @@ public class Komentar {
    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "Id_kupca", referencedColumnName = "Id")
     private Kupac kupac;//skontati
-   // @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   // @JoinColumn(name = "Id_restorana", referencedColumnName = "Id")
-    //private Set<Restoran> restoran = new HashSet<Restoran>();//skontati
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_restorana", referencedColumnName = "Id")
+    private Restoran restoran ;//skontati
     @Column
     private String Tekst;
     @Column
@@ -27,6 +27,13 @@ public class Komentar {
         this.kupac = kupac;
         Tekst = tekst;
         Ocena = ocena;
+    }
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public Kupac getKupac() {
