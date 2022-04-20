@@ -12,8 +12,8 @@ public class Restoran {
     private String Ime;
     @Column
     private String Tip_restorana ;
-
-   // private Set<Artikal> Artikli = new HashSet<Artikal>();//Skontati
+    @Column
+    private Set<Artikal> artikli = new HashSet<>();//Skontati
 
 
     public Restoran() {
@@ -46,11 +46,11 @@ public class Restoran {
         Tip_restorana = tip_restorana;
     }
 
-    /*public Set<Artikal> getArtikli() {
-        return Artikli;
+    public Set<Artikal> getArtikli() {
+        return artikli;
     }
 
     public void setArtikli(Set<Artikal> artikli) {
-        Artikli = artikli;
-    }*/
+        this.artikli = artikli;
+    }
 }
