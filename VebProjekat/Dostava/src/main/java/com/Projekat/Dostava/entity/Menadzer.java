@@ -11,6 +11,13 @@ public class Menadzer extends Korisnik{
     @Column
     private String zaduzenje;
 
+    public Menadzer() {
+    }
+
+    public Menadzer(String zaduzenje) {
+        this.zaduzenje = zaduzenje;
+    }
+
     public String getZaduzenje() {
         return zaduzenje;
     }

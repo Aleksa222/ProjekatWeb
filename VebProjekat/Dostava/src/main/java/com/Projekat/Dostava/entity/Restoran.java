@@ -15,6 +15,15 @@ public class Restoran {
 
    // private Set<Artikal> Artikli = new HashSet<Artikal>();//Skontati
 
+
+    public Restoran() {
+    }
+
+    public Restoran(String ime, String tip_restorana) {
+        Ime = ime;
+        Tip_restorana = tip_restorana;
+    }
+
     public String getIme() {
         return Ime;
     }
