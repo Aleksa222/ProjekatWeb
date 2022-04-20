@@ -4,23 +4,25 @@ import javax.persistence.*;
 
 @Entity
 public class Korisnik {
- @Id
- @GeneratedValue(strategy =  GenerationType.IDENTITY)
- private Long Id;
- @Column(unique = true, nullable = false)
-   private String Korisnicko_ime;
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long Id;
+    @Column(unique = true, nullable = false)
+    private String Korisnicko_ime;
     @Column(nullable = false)
     private String Lozinka;
-    @Column
+    @Column(nullable = false)
     private String Ime;
-    @Column
+    @Column(nullable = false)
     private String Prezime;
     @Enumerated(EnumType.STRING)
+    @Column
     protected Enum_pol pol;
     @Column
     private String Datum_rodjenja;
 
     @Enumerated(EnumType.STRING)
+    @Column
     protected Enum_uloga uloga;
 
  public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, String datum_rodjenja) {
@@ -34,7 +36,15 @@ public class Korisnik {
  public Korisnik() {
  }
 
- public String getKorisnicko_ime() {
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+
+    public String getKorisnicko_ime() {
   return Korisnicko_ime;
  }
 

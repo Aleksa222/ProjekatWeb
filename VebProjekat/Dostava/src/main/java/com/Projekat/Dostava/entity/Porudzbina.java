@@ -24,6 +24,7 @@ public class Porudzbina {
     //private Kupac kupac;  //skontati
 
     @Enumerated(EnumType.STRING)
+    @Column
     private Enum_status status;
 
     public Porudzbina() {
@@ -34,6 +35,13 @@ public class Porudzbina {
         this.datum_i_vreme = datum_i_vreme;
         Cena = cena;
         this.status = status;
+    }
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
     }
 
     public int getUUID() {

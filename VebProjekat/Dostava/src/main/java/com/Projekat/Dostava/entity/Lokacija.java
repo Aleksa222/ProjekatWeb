@@ -22,7 +22,13 @@ public class Lokacija {
         Geografska_duzina = geografska_duzina;
         Adresa = adresa;
     }
+    public Long getId() {
+        return Id;
+    }
 
+    public void setId(Long id) {
+        Id = id;
+    }
     public double getGeografska_sirina() {
         return Geografska_sirina;
     }
