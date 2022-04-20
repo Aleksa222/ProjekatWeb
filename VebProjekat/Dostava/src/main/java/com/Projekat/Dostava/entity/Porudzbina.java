@@ -8,7 +8,7 @@ import java.util.Date;
 public class Porudzbina {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long Id;
+    private Long IdPorudzbine;
     @Column
     private int UUID;
   //  @Column
@@ -37,11 +37,11 @@ public class Porudzbina {
         this.status = status;
     }
     public Long getId() {
-        return Id;
+        return IdPorudzbine;
     }
 
     public void setId(Long id) {
-        Id = id;
+        IdPorudzbine = id;
     }
 
     public int getUUID() {
