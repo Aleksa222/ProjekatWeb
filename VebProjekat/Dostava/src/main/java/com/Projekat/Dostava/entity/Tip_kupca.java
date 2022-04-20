@@ -6,14 +6,14 @@ import javax.persistence.*;
 public class Tip_kupca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long IdTip_kupca;
 
     public Long getId() {
-        return Id;
+        return IdTip_kupca;
     }
 
     public void setId(Long id) {
-        Id = id;
+        IdTip_kupca = id;
     }
 
 }

@@ -7,7 +7,7 @@ import java.util.Set;
 public class Restoran {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long Id;
+    private Long IdRestorana;
     @Column
     private String Ime;
     @Column
@@ -24,11 +24,11 @@ public class Restoran {
         Tip_restorana = tip_restorana;
     }
     public Long getId() {
-        return Id;
+        return IdRestorana;
     }
 
     public void setId(Long id) {
-        Id = id;
+        IdRestorana = id;
     }
     public String getIme() {
         return Ime;

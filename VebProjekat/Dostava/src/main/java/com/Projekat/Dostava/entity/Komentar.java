@@ -7,7 +7,7 @@ import java.util.Set;
 public class Komentar {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long Id;
+    private Long IdKomentara;
    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinColumn(name = "Id_kupca", referencedColumnName = "Id")
     private Kupac kupac;//skontati
@@ -29,11 +29,11 @@ public class Komentar {
         Ocena = ocena;
     }
     public Long getId() {
-        return Id;
+        return IdKomentara;
     }
 
     public void setId(Long id) {
-        Id = id;
+        IdKomentara = id;
     }
 
     public Kupac getKupac() {
