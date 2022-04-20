@@ -11,6 +11,13 @@ public class Dostavljac extends Korisnik{
     @Column
     private String porudzbine;
 
+    public Dostavljac(String porudzbine) {
+        this.porudzbine = porudzbine;
+    }
+
+    public Dostavljac() {
+    }
+
     public String getPorudzbine() {
         return porudzbine;
     }

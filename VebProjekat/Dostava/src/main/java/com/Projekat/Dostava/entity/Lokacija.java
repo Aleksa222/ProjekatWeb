@@ -14,6 +14,15 @@ public class Lokacija {
     @Column
     private String Adresa;
 
+    public Lokacija() {
+    }
+
+    public Lokacija(double geografska_sirina, double geografska_duzina, String adresa) {
+        Geografska_sirina = geografska_sirina;
+        Geografska_duzina = geografska_duzina;
+        Adresa = adresa;
+    }
+
     public double getGeografska_sirina() {
         return Geografska_sirina;
     }

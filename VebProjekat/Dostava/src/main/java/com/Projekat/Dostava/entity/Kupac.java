@@ -12,6 +12,20 @@ public class Kupac extends Korisnik{
     @Column
     private double Broj_bodova;
 
+    public Kupac() {
+    }
+
+    public Kupac(String korisnicko_ime, String lozinka, String ime, String prezime, String datum_rodjenja, double popust, double broj_bodova) {
+        super(korisnicko_ime, lozinka, ime, prezime, datum_rodjenja);
+        Popust = popust;
+        Broj_bodova = broj_bodova;
+    }
+
+    public Kupac(double popust, double broj_bodova) {
+        Popust = popust;
+        Broj_bodova = broj_bodova;
+    }
+
     public double getPopust() {
         return Popust;
     }

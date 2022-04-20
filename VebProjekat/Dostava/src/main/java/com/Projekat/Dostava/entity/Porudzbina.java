@@ -26,6 +26,16 @@ public class Porudzbina {
     @Enumerated(EnumType.STRING)
     private Enum_status status;
 
+    public Porudzbina() {
+    }
+
+    public Porudzbina(int UUID, Date datum_i_vreme, double cena, Enum_status status) {
+        this.UUID = UUID;
+        this.datum_i_vreme = datum_i_vreme;
+        Cena = cena;
+        this.status = status;
+    }
+
     public int getUUID() {
         return UUID;
     }

@@ -19,6 +19,16 @@ public class Komentar {
     @Column
     private int Ocena;
 
+    public Komentar() {
+    }
+
+    public Komentar(Kupac kupac, String tekst, int ocena) {
+
+        this.kupac = kupac;
+        Tekst = tekst;
+        Ocena = ocena;
+    }
+
     public Kupac getKupac() {
         return kupac;
     }

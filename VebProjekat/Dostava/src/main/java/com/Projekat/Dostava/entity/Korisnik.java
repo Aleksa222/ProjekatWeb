@@ -23,6 +23,17 @@ public class Korisnik {
     @Enumerated(EnumType.STRING)
     protected Enum_uloga uloga;
 
+ public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, String datum_rodjenja) {
+  Korisnicko_ime = korisnicko_ime;
+  Lozinka = lozinka;
+  Ime = ime;
+  Prezime = prezime;
+  Datum_rodjenja = datum_rodjenja;
+ }
+
+ public Korisnik() {
+ }
+
  public String getKorisnicko_ime() {
   return Korisnicko_ime;
  }
