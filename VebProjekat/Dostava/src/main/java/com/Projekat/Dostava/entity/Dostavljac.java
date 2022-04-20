@@ -4,12 +4,14 @@ import javax.persistence.*;
 
 @Entity
 public class Dostavljac extends Korisnik{
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long Id;
+
 
     @Column
     private String porudzbine;
+
+
+
+
 
     public Dostavljac(String porudzbine) {
         this.porudzbine = porudzbine;

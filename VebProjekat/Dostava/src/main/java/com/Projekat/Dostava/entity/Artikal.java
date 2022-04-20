@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Artikal {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long Id;
+    private Long IdArtikla;
 
     @Column
     private String naziv;
@@ -36,11 +36,11 @@ public class Artikal {
     }
 
     public Long getId() {
-        return Id;
+        return IdArtikla;
     }
 
     public void setId(Long id) {
-        Id = id;
+        IdArtikla = id;
     }
 
     public String getNaziv() {

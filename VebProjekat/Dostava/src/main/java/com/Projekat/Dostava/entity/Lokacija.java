@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Lokacija {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long Id;
+    private Long IdLokacije;
     @Column
     private double Geografska_sirina;
     @Column
@@ -23,11 +23,11 @@ public class Lokacija {
         Adresa = adresa;
     }
     public Long getId() {
-        return Id;
+        return IdLokacije;
     }
 
     public void setId(Long id) {
-        Id = id;
+        IdLokacije = id;
     }
     public double getGeografska_sirina() {
         return Geografska_sirina;
