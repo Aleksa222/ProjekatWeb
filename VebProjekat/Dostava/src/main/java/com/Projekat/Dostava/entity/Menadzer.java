@@ -2,20 +2,30 @@ package com.Projekat.Dostava.entity;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Menadzer extends Korisnik{
+public class Menadzer extends Korisnik implements Serializable {
 
+    @OneToOne
+    @JoinColumn(name = "restoran_id", referencedColumnName = "idRestoran")
+    private Restoran restoran;
 
+    public Menadzer(){this.uloga = Enum_uloga.MENADZER;}
 
-    @Column
-    private String zaduzenje;
-
-    public String getZaduzenje() {
-        return zaduzenje;
+    public Menadzer(Korisnik k,Restoran restoran){
+        super(k);
+        this.restoran = restoran;
+        this.uloga = Enum_uloga.MENADZER;
     }
 
-    public void setZaduzenje(String zaduzenje) {
-        this.zaduzenje = zaduzenje;
+    public Restoran getRestoran(){
+        return restoran;
     }
+
+    public void setRestoran(Restoran restoran){
+        this.restoran = restoran;
+    }
+
+
 }

@@ -9,7 +9,13 @@ import javax.persistence.*;
 
 @Entity
 public class Admin extends Korisnik {
+    public Admin(){
+        super();
+    }
 
+    public Admin(Korisnik k){
+        super(k);
+    }
 
 
 
