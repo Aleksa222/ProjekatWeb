@@ -7,11 +7,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+
 public class Dostavljac extends Korisnik implements Serializable {
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "IdDostavljaca",nullable = false)
     private Set<Porudzbina> porudzbine = new HashSet<>();
+
 
     public Dostavljac(){this.uloga = Enum_uloga.DOSTAVLJAC;}
 

@@ -8,6 +8,7 @@ import java.util.Set;
 public class Komentar implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
+
     private Long idKomentar;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -17,6 +18,7 @@ public class Komentar implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Restoran_Komentar", referencedColumnName = "idRestoran")
     private Restoran restoran;
+
 
     @Column
     private String Tekst;
@@ -31,6 +33,7 @@ public class Komentar implements Serializable {
         this.restoran = r;
         this.Tekst = tekst;
         this.Ocena = ocena;
+
     }
 
     public Kupac getKupac() {

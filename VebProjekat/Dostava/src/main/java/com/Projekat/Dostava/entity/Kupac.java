@@ -22,6 +22,7 @@ public class Kupac extends Korisnik implements Serializable {
     @JoinColumn(name = "TitulaId")
     private Titula titula;
 
+
     public Kupac(){this.uloga = Enum_uloga.KUPAC;}
 
     public Kupac(Korisnik k,Set<Porudzbina> porudzbine,int broj_bodova,Titula t){

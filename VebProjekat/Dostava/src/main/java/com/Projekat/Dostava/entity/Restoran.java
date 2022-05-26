@@ -15,6 +15,10 @@ public class Restoran {
 
     @Column
     private String Tip_restorana ;
+    @Column
+    private Set<Artikal> artikli = new HashSet<>();//Skontati
+
+
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<Artikal> Artikli = new HashSet<Artikal>();
@@ -63,4 +67,5 @@ public class Restoran {
     public Lokacija getLokacija(){return Lokacija;}
 
     public void setLokacija(Lokacija lokacija){this.Lokacija = lokacija;}
+
 }

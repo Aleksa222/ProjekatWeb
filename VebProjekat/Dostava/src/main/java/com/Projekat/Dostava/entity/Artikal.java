@@ -9,6 +9,7 @@ public class Artikal implements Serializable {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long idArtikla;
 
+
     @Column
     private String naziv;
 
@@ -16,10 +17,13 @@ public class Artikal implements Serializable {
     private double Cena;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private Enum_tip tip;
+
 
     @Column
     private double kolicina;
+
 
     @Column
     private String Opis;
@@ -37,6 +41,13 @@ public class Artikal implements Serializable {
 
     }
 
+    public Long getId() {
+        return IdArtikla;
+    }
+
+    public void setId(Long id) {
+        IdArtikla = id;
+    }
 
 
     public String getNaziv() {

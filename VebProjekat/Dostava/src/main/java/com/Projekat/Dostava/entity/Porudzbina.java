@@ -11,6 +11,7 @@ import java.util.UUID;
 public class Porudzbina implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
+
     private UUID UUID;
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
@@ -32,7 +33,9 @@ public class Porudzbina implements Serializable {
     private Kupac kupac;
 
     @Enumerated(EnumType.STRING)
+    @Column
     private Enum_status status;
+
 
     public Porudzbina(){}
 
