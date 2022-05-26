@@ -11,7 +11,7 @@ public class KorisnikDto {
     private Date datum;
 
     public KorisnikDto(Korisnik k){
-        this.Korisnicko_ime = k.getKorisnicko_ime();
+        this.Korisnicko_ime = k.getKorisnicko();
         this.Lozinka = k.getLozinka();
         this.Ime = k.getIme();
         this.Prezime = k.getPrezime();

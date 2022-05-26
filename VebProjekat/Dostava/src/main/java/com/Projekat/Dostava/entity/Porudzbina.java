@@ -2,8 +2,10 @@ package com.Projekat.Dostava.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Porudzbina implements Serializable {
@@ -11,7 +13,7 @@ public class Porudzbina implements Serializable {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private UUID UUID;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Artikal_za_Porudzbinu> poruceno = new HashSet<>();
 
     @ManyToOne

@@ -9,7 +9,8 @@ public class Titula implements Serializable {
     public enum titulaKupca {
         ZLATNI,SREBRNI,BRONZANI,NOVI_CLAN
     }
-
+    public Titula(){}
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTitula;

@@ -13,7 +13,7 @@ public class Korisnik implements Serializable {
     private Long Id;
 
     @Column(name = "KorisnickoIme",unique = true, nullable = false)
-    protected String Korisnicko_ime;
+    protected String korisnicko;
 
     @Column(name = "Lozinka",nullable = false)
     protected String Lozinka;
@@ -24,14 +24,14 @@ public class Korisnik implements Serializable {
     @Column(name="Prezime", nullable = false)
     protected String Prezime;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "Pol", nullable = false)
     protected Enum_pol pol;
 
     @Temporal(TemporalType.DATE)
     protected Date Datum_rodjenja;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "Uloga", nullable = false)
     protected Enum_uloga uloga;
 
@@ -43,7 +43,7 @@ public class Korisnik implements Serializable {
     }
 
     public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, Enum_pol pol, Date datum_rodjenja,Enum_uloga uloga) {
-        this.Korisnicko_ime = korisnicko_ime;
+        this.korisnicko = korisnicko_ime;
         this.Lozinka = lozinka;
         this.Ime = ime;
         this.Prezime = prezime;
@@ -53,7 +53,7 @@ public class Korisnik implements Serializable {
     }
 
     public Korisnik(Korisnik k){
-        Korisnicko_ime = k.getKorisnicko_ime();
+        korisnicko = k.getKorisnicko();
         Lozinka = k.getLozinka();
         Ime = k.getIme();
         Prezime = k.getPrezime();
@@ -62,12 +62,12 @@ public class Korisnik implements Serializable {
         uloga = k.getUloga();
     }
 
-    public String getKorisnicko_ime() {
-        return Korisnicko_ime;
+    public String getKorisnicko() {
+        return korisnicko;
     }
 
     public void setKorisnicko_ime(String korisnicko_ime) {
-        Korisnicko_ime = korisnicko_ime;
+        korisnicko = korisnicko_ime;
     }
 
     public String getLozinka() {
@@ -122,7 +122,7 @@ public class Korisnik implements Serializable {
     public String toString() {
         return "Korisnik{" +
                 "Id=" + Id +
-                ", korisnicko ime='" + Korisnicko_ime + '\'' +
+                ", korisnicko ime='" + korisnicko + '\'' +
                 ", lozinka='" + Lozinka + '\'' +
                 ", ime='" + Ime + '\'' +
                 ", prezime='" + Prezime + '\'' +

@@ -41,7 +41,6 @@ public class Artikal_za_Porudzbinu implements Serializable {
         this.artikal = artikal;
     }
 
-
     public Long getId_ArtikalzaP() {
         return id_ArtikalzaP;
     }

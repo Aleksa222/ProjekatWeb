@@ -26,8 +26,10 @@ public class DatabaseConfiguration {
 
     @Bean
     public boolean instantiate(){
-        Korisnik korisnik = new Korisnik("Aleksa22","Lozinka123","Aleksa","Vuckovic", Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()), Enum_uloga.ADMIN);
+        Korisnik korisnik = new Korisnik("Aleksa22","Lozinka123","Aleksa","Vuckovic", Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),Enum_uloga.ADMIN);
         korisnikRepository.save(korisnik);
+
+
 
         Lokacija lokacija = new Lokacija(5000,3600,"Trg Mladenaca");
         lokacijaRepository.save(lokacija);
@@ -46,7 +48,10 @@ public class DatabaseConfiguration {
         Korisnik korisnik2 = new Korisnik("Korisnik123","Sifra123","Marko","Milosevic",Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),Enum_uloga.DOSTAVLJAC);
         korisnikRepository.save(korisnik2);
 
+
         artikalRepository.saveAll(List.of(artikal,artikal2));
+
+
 
 
 
