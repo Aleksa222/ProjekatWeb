@@ -1,102 +1,134 @@
 package com.Projekat.Dostava.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 @Entity
-public class Korisnik {
+@Table(name = "KORISNIK")
+public class Korisnik implements Serializable {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long IdKorisnika;
-    @Column(unique = true, nullable = false)
-    private String Korisnicko_ime;
-    @Column(nullable = false)
-    private String Lozinka;
-    @Column(nullable = false)
-    private String Ime;
-    @Column(nullable = false)
-    private String Prezime;
-    @Enumerated(EnumType.STRING)
-    @Column
-    protected Enum_pol pol;
-    @Column
-    private String Datum_rodjenja;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
-    @Enumerated(EnumType.STRING)
-    @Column
+    @Column(name = "KorisnickoIme",unique = true, nullable = false)
+    protected String korisnicko;
+
+    @Column(name = "Lozinka",nullable = false)
+    protected String Lozinka;
+
+    @Column(name="Ime", nullable = false)
+    protected String Ime;
+
+    @Column(name="Prezime", nullable = false)
+    protected String Prezime;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "Pol", nullable = false)
+    protected Enum_pol pol;
+
+    @Temporal(TemporalType.DATE)
+    protected Date Datum_rodjenja;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "Uloga", nullable = false)
     protected Enum_uloga uloga;
 
- public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, String datum_rodjenja) {
-  Korisnicko_ime = korisnicko_ime;
-  Lozinka = lozinka;
-  Ime = ime;
-  Prezime = prezime;
-  Datum_rodjenja = datum_rodjenja;
- }
-
- public Korisnik() {
- }
-
-    public Long getId() {
-        return IdKorisnika;
+    public Korisnik() {
     }
 
-    public void setId(Long id) {
-        IdKorisnika = id;
+    public Korisnik(Enum_uloga uloga){
+        this.uloga = uloga;
     }
 
-    public String getKorisnicko_ime() {
-  return Korisnicko_ime;
- }
+    public Korisnik(String korisnicko_ime, String lozinka, String ime, String prezime, Enum_pol pol, Date datum_rodjenja,Enum_uloga uloga) {
+        this.korisnicko = korisnicko_ime;
+        this.Lozinka = lozinka;
+        this.Ime = ime;
+        this.Prezime = prezime;
+        this.pol = pol;
+        this.Datum_rodjenja = datum_rodjenja;
+        this.uloga = uloga;
+    }
 
- public void setKorisnicko_ime(String korisnicko_ime) {
-  Korisnicko_ime = korisnicko_ime;
- }
+    public Korisnik(Korisnik k){
+        korisnicko = k.getKorisnicko();
+        Lozinka = k.getLozinka();
+        Ime = k.getIme();
+        Prezime = k.getPrezime();
+        pol = k.getPol();
+        Datum_rodjenja = k.getDatum_rodjenja();
+        uloga = k.getUloga();
+    }
 
- public String getLozinka() {
-  return Lozinka;
- }
+    public String getKorisnicko() {
+        return korisnicko;
+    }
 
- public void setLozinka(String lozinka) {
-  Lozinka = lozinka;
- }
+    public void setKorisnicko_ime(String korisnicko_ime) {
+        korisnicko = korisnicko_ime;
+    }
 
- public String getIme() {
-  return Ime;
- }
+    public String getLozinka() {
+        return Lozinka;
+    }
 
- public void setIme(String ime) {
-  Ime = ime;
- }
+    public void setLozinka(String lozinka) {
+        Lozinka = lozinka;
+    }
 
- public String getPrezime() {
-  return Prezime;
- }
+    public String getIme() {
+        return Ime;
+    }
 
- public void setPrezime(String prezime) {
-  Prezime = prezime;
- }
+    public void setIme(String ime) {
+        Ime = ime;
+    }
 
- public Enum_pol getPol() {
-  return pol;
- }
+    public String getPrezime() {
+        return Prezime;
+    }
 
- public void setPol(Enum_pol pol) {
-  this.pol = pol;
- }
+    public void setPrezime(String prezime) {
+        Prezime = prezime;
+    }
 
- public String getDatum_rodjenja() {
-  return Datum_rodjenja;
- }
+    public Enum_pol getPol() {
+        return pol;
+    }
 
- public void setDatum_rodjenja(String datum_rodjenja) {
-  Datum_rodjenja = datum_rodjenja;
- }
+    public void setPol(Enum_pol pol) {
+        this.pol = pol;
+    }
 
- public Enum_uloga getUloga() {
-  return uloga;
- }
+    public Date getDatum_rodjenja() {
+        return Datum_rodjenja;
+    }
 
- public void setUloga(Enum_uloga uloga) {
-  this.uloga = uloga;
- }
+    public void setDatum_rodjenja(Date datum_rodjenja) {
+        Datum_rodjenja = datum_rodjenja;
+    }
+
+    public Enum_uloga getUloga() {
+        return uloga;
+    }
+
+    public void setUloga(Enum_uloga uloga) {
+        this.uloga = uloga;
+    }
+
+    @Override
+    public String toString() {
+        return "Korisnik{" +
+                "Id=" + Id +
+                ", korisnicko ime='" + korisnicko + '\'' +
+                ", lozinka='" + Lozinka + '\'' +
+                ", ime='" + Ime + '\'' +
+                ", prezime='" + Prezime + '\'' +
+                ", pol=" + pol +
+                ", datum rodjenja=" + Datum_rodjenja +
+                ", uloga=" + uloga +
+                '}';
+    }
 }
+

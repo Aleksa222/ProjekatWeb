@@ -1,29 +1,35 @@
 package com.Projekat.Dostava.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Artikal {
+public class Artikal implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long IdArtikla;
+    private Long idArtikla;
+
 
     @Column
     private String naziv;
+
     @Column
     private double Cena;
+
     @Enumerated(EnumType.STRING)
     @Column
     private Enum_tip tip;
-    @Enumerated(EnumType.STRING)
+
+
     @Column
-    private Enum_kolicina kolicina;
+    private double kolicina;
+
 
     @Column
     private String Opis;
 
 
-    public Artikal(String naziv, double cena, Enum_tip tip, Enum_kolicina kolicina, String opis) {
+    public Artikal(String naziv, double cena, Enum_tip tip, double kolicina, String opis) {
         this.naziv = naziv;
         Cena = cena;
         this.tip = tip;
@@ -43,6 +49,7 @@ public class Artikal {
         IdArtikla = id;
     }
 
+
     public String getNaziv() {
         return naziv;
     }
@@ -51,9 +58,7 @@ public class Artikal {
         this.naziv = naziv;
     }
 
-    public double getCena() {
-        return Cena;
-    }
+    public double getCena() {return Cena;}
 
     public void setCena(double cena) {
         Cena = cena;
@@ -67,11 +72,11 @@ public class Artikal {
         this.tip = tip;
     }
 
-    public Enum_kolicina getKolicina() {
+    public double getKolicina() {
         return kolicina;
     }
 
-    public void setKolicina(Enum_kolicina kolicina) {
+    public void setKolicina(double kolicina) {
         this.kolicina = kolicina;
     }
 

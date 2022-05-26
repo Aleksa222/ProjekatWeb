@@ -1,39 +1,39 @@
 package com.Projekat.Dostava.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 @Entity
-public class Komentar {
+public class Komentar implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long IdKomentara;
-   @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-   @JoinColumn(name = "Id_kupca", referencedColumnName = "Id")
-    private Kupac kupac;//skontati
+
+    private Long idKomentar;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Id_restorana", referencedColumnName = "Id")
-    private Restoran restoran ;//skontati
+    @JoinColumn(name = "Kupac_Komentar", referencedColumnName = "Id")
+    private Kupac kupac;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Restoran_Komentar", referencedColumnName = "idRestoran")
+    private Restoran restoran;
+
+
     @Column
     private String Tekst;
+
     @Column
     private int Ocena;
 
-    public Komentar() {
-    }
+    public Komentar(){};
 
-    public Komentar(Kupac kupac, String tekst, int ocena) {
+    public Komentar(Kupac k,Restoran r,String tekst,int ocena){
+        this.kupac = k;
+        this.restoran = r;
+        this.Tekst = tekst;
+        this.Ocena = ocena;
 
-        this.kupac = kupac;
-        Tekst = tekst;
-        Ocena = ocena;
-    }
-    public Long getId() {
-        return IdKomentara;
-    }
-
-    public void setId(Long id) {
-        IdKomentara = id;
     }
 
     public Kupac getKupac() {
@@ -44,13 +44,17 @@ public class Komentar {
         this.kupac = kupac;
     }
 
-   /* public Restoran getRestoran() {
+    public Long getIdKomentar(){return idKomentar;}
+
+    public void setIdKomentar(Long idKomentar){this.idKomentar = idKomentar;}
+
+    public Restoran getRestoran() {
         return restoran;
     }
 
     public void setRestoran(Restoran restoran) {
         this.restoran = restoran;
-    }*/
+    }
 
     public String getTekst() {
         return Tekst;

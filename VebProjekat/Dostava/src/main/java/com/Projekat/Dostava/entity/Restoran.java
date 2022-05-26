@@ -3,39 +3,49 @@ package com.Projekat.Dostava.entity;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 @Entity
 public class Restoran {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long IdRestorana;
+    private Long idRestoran;
+
     @Column
-    private String Ime;
+    private String Naziv;
+
     @Column
     private String Tip_restorana ;
     @Column
     private Set<Artikal> artikli = new HashSet<>();//Skontati
 
 
-    public Restoran() {
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
+    private Set<Artikal> Artikli = new HashSet<Artikal>();
+
+    @OneToOne
+    @JoinColumn(name = "lokacija_id",referencedColumnName = "idLokacija")
+    private Lokacija Lokacija;
+
+    public Restoran(){}
+
+    public Restoran(String naziv,String tip_restorana, Set<Artikal> artikli, Lokacija lokacija){
+        this.Naziv = naziv;
+        this.Tip_restorana = tip_restorana;
+        this.Artikli = artikli;
+        this.Lokacija = lokacija;
     }
 
-    public Restoran(String ime, String tip_restorana) {
-        Ime = ime;
-        Tip_restorana = tip_restorana;
-    }
-    public Long getId() {
-        return IdRestorana;
+    public Long getIdRestoran(){return idRestoran;}
+
+    public void setIdRestoran(Long idRestorana){this.idRestoran = idRestorana;}
+
+    public String getNaziv() {
+        return Naziv;
     }
 
-    public void setId(Long id) {
-        IdRestorana = id;
-    }
-    public String getIme() {
-        return Ime;
-    }
-
-    public void setIme(String ime) {
-        Ime = ime;
+    public void setNaziv(String naziv) {
+        Naziv = naziv;
     }
 
     public String getTip_restorana() {
@@ -47,10 +57,15 @@ public class Restoran {
     }
 
     public Set<Artikal> getArtikli() {
-        return artikli;
+        return Artikli;
     }
 
     public void setArtikli(Set<Artikal> artikli) {
-        this.artikli = artikli;
+        this.Artikli = artikli;
     }
+
+    public Lokacija getLokacija(){return Lokacija;}
+
+    public void setLokacija(Lokacija lokacija){this.Lokacija = lokacija;}
+
 }

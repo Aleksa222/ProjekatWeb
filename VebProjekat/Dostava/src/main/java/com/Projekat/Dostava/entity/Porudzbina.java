@@ -1,72 +1,69 @@
 package com.Projekat.Dostava.entity;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 @Entity
-public class Porudzbina {
+public class Porudzbina implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long IdPorudzbine;
-    @Column
-    private int UUID;
-  //  @Column
-    //private ArrayList<Artikal> Poruceno;
-   // @Column
-   // private ArrayList<Restoran> Poruceno_iz;//jedna porudzbina jedan restoran
-    @Column
+
+    private UUID UUID;
+
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<Artikal_za_Porudzbinu> poruceno = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "restoran_id")
+    private Restoran restoran;
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column
     private Date datum_i_vreme = new Date();
+
     @Column
     private double Cena;
-    //@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    //private Kupac kupac;  //skontati
+
+    @ManyToOne
+    @JoinColumn(name="korisnicko_ime")
+    private Kupac kupac;
 
     @Enumerated(EnumType.STRING)
     @Column
     private Enum_status status;
 
-    public Porudzbina() {
-    }
 
-    public Porudzbina(int UUID, Date datum_i_vreme, double cena, Enum_status status) {
-        this.UUID = UUID;
+    public Porudzbina(){}
+
+    public Porudzbina(UUID uuid, Set<Artikal_za_Porudzbinu> poruceno, Restoran restoran, Date datum_i_vreme, double cena,Kupac kupac, Enum_status status){
+        this.UUID = uuid;
+        this.poruceno = poruceno;
+        this.restoran = restoran;
         this.datum_i_vreme = datum_i_vreme;
-        Cena = cena;
+        this.Cena = cena;
+        this.kupac = kupac;
         this.status = status;
     }
-    public Long getId() {
-        return IdPorudzbine;
-    }
 
-    public void setId(Long id) {
-        IdPorudzbine = id;
-    }
-
-    public int getUUID() {
+    public UUID getUUID() {
         return UUID;
     }
 
-    public void setUUID(int UUID) {
+    public void setUUID(UUID UUID) {
         this.UUID = UUID;
     }
-/*
-    public ArrayList<Artikal> getPoruceno() {
-        return Poruceno;
-    }
 
-    public void setPoruceno(ArrayList<Artikal> poruceno) {
-        Poruceno = poruceno;
-    }
+    public Set<Artikal_za_Porudzbinu> getPoruceno(){return poruceno;}
 
-    public ArrayList<Restoran> getPoruceno_iz() {
-        return Poruceno_iz;
-    }
+    public void setPoruceno(Set<Artikal_za_Porudzbinu> poruceno){this.poruceno = poruceno;}
 
-    public void setPoruceno_iz(ArrayList<Restoran> poruceno_iz) {
-        Poruceno_iz = poruceno_iz;
-    }*/
+    public Restoran getRestoran(){return restoran;}
+
+    public void setRestoran(Restoran restoran){this.restoran = restoran;}
 
     public Date getDatum_i_vreme() {
         return datum_i_vreme;
@@ -84,13 +81,13 @@ public class Porudzbina {
         Cena = cena;
     }
 
-   /* public Kupac getKupac() {
+    public Kupac getKupac() {
         return kupac;
     }
 
     public void setKupac(Kupac kupac) {
         this.kupac = kupac;
-    }*/
+    }
 
     public Enum_status getStatus() {
         return status;
