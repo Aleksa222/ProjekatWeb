@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;*/
 import javax.persistence.*;
 import java.util.Date;
-
+//EEEE
 
 @Entity
 public class Admin extends Korisnik {
