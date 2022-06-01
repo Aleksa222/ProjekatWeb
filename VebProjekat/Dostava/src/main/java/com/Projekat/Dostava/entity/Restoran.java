@@ -15,8 +15,8 @@ public class Restoran {
 
     @Column
     private String Tip_restorana ;
-    @Column
-    private Set<Artikal> artikli = new HashSet<>();//Skontati
+    //@Column
+    //private Set<Artikal> artikli = new HashSet<>();//Skontati
 
 
 
