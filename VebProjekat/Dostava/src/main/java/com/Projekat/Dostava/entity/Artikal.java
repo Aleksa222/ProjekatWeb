@@ -42,11 +42,11 @@ public class Artikal implements Serializable {
     }
 
     public Long getId() {
-        return IdArtikla;
+        return idArtikla;
     }
 
     public void setId(Long id) {
-        IdArtikla = id;
+        idArtikla = id;
     }
 
 
