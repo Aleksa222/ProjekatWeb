@@ -11,14 +11,10 @@ public class Restoran {
     private Long idRestoran;
 
     @Column
-    private String Naziv;
+    private String naziv;
 
     @Column
     private String Tip_restorana ;
-    @Column
-    private Set<Artikal> artikli = new HashSet<>();//Skontati
-
-
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<Artikal> Artikli = new HashSet<Artikal>();
@@ -30,7 +26,7 @@ public class Restoran {
     public Restoran(){}
 
     public Restoran(String naziv,String tip_restorana, Set<Artikal> artikli, Lokacija lokacija){
-        this.Naziv = naziv;
+        this.naziv = naziv;
         this.Tip_restorana = tip_restorana;
         this.Artikli = artikli;
         this.Lokacija = lokacija;
@@ -41,11 +37,11 @@ public class Restoran {
     public void setIdRestoran(Long idRestorana){this.idRestoran = idRestorana;}
 
     public String getNaziv() {
-        return Naziv;
+        return naziv;
     }
 
     public void setNaziv(String naziv) {
-        Naziv = naziv;
+        this.naziv = naziv;
     }
 
     public String getTip_restorana() {

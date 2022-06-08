@@ -1,26 +1,10 @@
-package com.Projekat.Dostava.entity;
+package com.Projekat.Dostava.dto;
 
-import javax.persistence.*;
-import java.io.Serializable;
-
-@Entity
-public class Lokacija implements Serializable {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private Long idLokacija;
-
-    @Column
-    private double geografska_sirina;
-
-    @Column
-    private double geografska_duzina;
-
-    @Column
+public class LokacijaDto {
+    private double geografska_sirina,geografska_duzina;
     private String adresa;
 
-    public Lokacija(){}
-
-    public Lokacija(double geografska_sirina,double geografska_duzina,String adresa){
+    public LokacijaDto(double geografska_sirina, double geografska_duzina, String adresa) {
         this.geografska_sirina = geografska_sirina;
         this.geografska_duzina = geografska_duzina;
         this.adresa = adresa;
@@ -31,7 +15,7 @@ public class Lokacija implements Serializable {
     }
 
     public void setGeografska_sirina(double geografska_sirina) {
-        geografska_sirina = geografska_sirina;
+        this.geografska_sirina = geografska_sirina;
     }
 
     public double getGeografska_duzina() {
@@ -39,7 +23,7 @@ public class Lokacija implements Serializable {
     }
 
     public void setGeografska_duzina(double geografska_duzina) {
-        geografska_duzina = geografska_duzina;
+        this.geografska_duzina = geografska_duzina;
     }
 
     public String getAdresa() {
@@ -47,6 +31,6 @@ public class Lokacija implements Serializable {
     }
 
     public void setAdresa(String adresa) {
-        adresa = adresa;
+        this.adresa = adresa;
     }
 }

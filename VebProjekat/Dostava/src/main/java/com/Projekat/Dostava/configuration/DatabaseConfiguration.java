@@ -23,6 +23,8 @@ public class DatabaseConfiguration {
     private DostavljacRepository dostavljacRepository;
     @Autowired
     private LokacijaRepository lokacijaRepository;
+    @Autowired
+    private MenadzerRepository menadzerRepository;
 
     @Bean
     public boolean instantiate(){
@@ -39,6 +41,11 @@ public class DatabaseConfiguration {
         restoran.setTip_restorana("Meksicka Hrana");
         restoran.setLokacija(lokacija);
         restoranRepository.save(restoran);
+        Restoran restoran2 = new Restoran();
+        restoran2.setNaziv("Gyros Master");
+        restoran2.setTip_restorana("Grcka Hrana");
+        restoranRepository.save(restoran2);
+
 
         Artikal artikal = new Artikal("Burito",400,Enum_tip.HRANA,250,"Sjajan Burito");
         Artikal artikal2 = new Artikal("Crunch Wrap",450,Enum_tip.HRANA,350,"Ukusno");
@@ -47,7 +54,9 @@ public class DatabaseConfiguration {
 
         Korisnik korisnik2 = new Korisnik("Korisnik123","Sifra123","Marko","Milosevic",Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),Enum_uloga.DOSTAVLJAC);
         korisnikRepository.save(korisnik2);
-
+        Menadzer menadzer = new Menadzer("Loha12","sifra","Uros","Lohinski",Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),restoran);
+        menadzerRepository.save(menadzer);
+        korisnikRepository.save(menadzer);
 
         artikalRepository.saveAll(List.of(artikal,artikal2));
 
