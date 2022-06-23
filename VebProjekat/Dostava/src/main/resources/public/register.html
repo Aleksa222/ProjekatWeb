@@ -23,27 +23,36 @@
 
                     <label  for="name" class="sr-only"></label>
                     <input type="name" id="name" class="form-control"
-                    placeholder="Enter your first name" required autofocus>
+                    placeholder="Enter your username" required autofocus>
 
-                    <label  for="name" class="sr-only"></label>
-                    <input type="name" id="name" class="form-control"
+                    <label for="password" class="sr-only"></label>
+                    <input type="password" id="password" class="form-control"
+                           placeholder="Enter your password" required autofocus>
+
+                    <label  for="fname" class="sr-only"></label>
+                    <input type="name" id="fname" class="form-control"
+                           placeholder="Enter your  name" required autofocus>
+
+                    <label  for="surname" class="sr-only"></label>
+                    <input type="name" id="surname" class="form-control"
                     placeholder="Enter your last name" required autofocus>
 
-                    <label  for="emailAddres" class="sr-only"></label>
-                    <input type="email" id="emailAddres" class="form-control"
-                    placeholder="Email" required autofocus>
+
+                    <label  for="pol" class="sr-only"></label>
+                    <input type="name" id="pol" class="form-control"
+                    placeholder="Enter your gender" required autofocus>
 
 
-                    <label for="password" class="sr-only"></label>
-                    <input type="password" id="password" class="form-control"
-                    placeholder="Password" required autofocus>
 
-                    <label for="password" class="sr-only"></label>
-                    <input type="password" id="password" class="form-control"
-                    placeholder="Repeat Password" required autofocus>
+
+                    <label for="date" class="sr-only"></label>
+                    <input type="date" id="date" class="form-control"
+                    placeholder="Enter your date of birth" required autofocus>
                         <!--Button-->
                         <div class="mt-3">
-                            <a href="http://localhost:8080/login" class="btn btn-lg btn-dark">Register</a>
+                            <a href="http://localhost:8080/login">
+                                <input  class="btn btn-lg btn-dark" type="button"  value="Register" id="submit" onclick="validate()"/>
+                            </a>
                             
                         </div>
                 </form>
