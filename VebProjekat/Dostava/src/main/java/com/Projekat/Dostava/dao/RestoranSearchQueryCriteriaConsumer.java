@@ -12,7 +12,7 @@ public class RestoranSearchQueryCriteriaConsumer implements Consumer<SearchCrite
     private CriteriaBuilder builder;
     private Root r;
 
-    public RestaurantSearchQueryCriteriaConsumer(Predicate predicate, CriteriaBuilder builder, Root r) {
+    public RestoranSearchQueryCriteriaConsumer(Predicate predicate, CriteriaBuilder builder, Root r) {
         super();
         this.predicate = predicate;
         this.builder = builder;
