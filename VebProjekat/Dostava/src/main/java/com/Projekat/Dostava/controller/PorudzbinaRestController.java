@@ -180,4 +180,51 @@ public class PorudzbinaRestController {
         return new ResponseEntity("Uspesno poruceno.", HttpStatus.OK);
     }
 
+    @PutMapping("/api/porudzbine-menadzerStatus")
+    public ResponseEntity priprema(@RequestParam("korisnicko_ime") String korisnickoIme, HttpSession session){
+
+        if(!sessionService.validateRole(session,"Menadzer")){
+            return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
+        }
+
+        Kupac kupac = (Kupac) korisnikService.findOne(korisnickoIme);
+
+        if(porudzbinaService.findByStatus(kupac,Enum_status.OBRADA) != null){
+            Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.OBRADA);
+            porudzbina.setStatus(Enum_status.U_PRIPREMI);
+            porudzbinaService.save(porudzbina);
+            korisnikService.save(kupac);
+            return new ResponseEntity("Porudzbina se priprema.", HttpStatus.OK);
+        }
+            Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.U_PRIPREMI);
+            porudzbina.setStatus(Enum_status.CEKA_DOSTAVLJACA);
+            porudzbinaService.save(porudzbina);
+            korisnikService.save(kupac);
+            return new ResponseEntity("Porudzbina ceka dostavljaca.", HttpStatus.OK);
+
+    }
+
+    @PutMapping("/api/porudzbine-dostavljacStatus")
+    public ResponseEntity preuzmiPorudzbinu(HttpSession session, @RequestParam("korisnicko_ime") String korisnickoIme){
+
+        if(!sessionService.validateRole(session,"Dostavljac")){
+            return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
+        }
+
+        Kupac kupac = (Kupac) korisnikService.findOne(korisnickoIme);
+
+        if(porudzbinaService.findByStatus(kupac,Enum_status.CEKA_DOSTAVLJACA) != null) {
+            Porudzbina porudzbina = porudzbinaService.findByStatus(kupac, Enum_status.OBRADA);
+            porudzbina.setStatus(Enum_status.U_TRANSPORTU);
+            porudzbinaService.save(porudzbina);
+            korisnikService.save(kupac);
+            return new ResponseEntity("Porudzbina je u transportu.", HttpStatus.OK);
+        }
+            Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.U_PRIPREMI);
+            porudzbina.setStatus(Enum_status.DOSTAVLJENA);
+            porudzbinaService.save(porudzbina);
+            kupac.setBroj_bodova((int) (kupac.getBroj_bodova() + (porudzbina.getCena() / 1000) * 133));
+            korisnikService.save(kupac);
+            return new ResponseEntity("Porudzbina je dostavljena.", HttpStatus.OK);
+    }
 }
