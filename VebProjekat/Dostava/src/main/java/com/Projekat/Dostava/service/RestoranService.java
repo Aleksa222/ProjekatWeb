@@ -69,5 +69,12 @@ public class RestoranService {
         return odgovarajucaLokacija;
     }
 
+    public void obrisiRestoran(Long id){
+        Restoran restoran = this.pronadjiJedan(id);
+
+        restoranRepository.delete(restoran);
+
+    }
+
 
 }

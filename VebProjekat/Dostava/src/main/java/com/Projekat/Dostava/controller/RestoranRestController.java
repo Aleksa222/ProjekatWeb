@@ -6,7 +6,9 @@ import com.Projekat.Dostava.dto.RestoranPrikazDto;
 import com.Projekat.Dostava.entity.Komentar;
 import com.Projekat.Dostava.entity.Restoran;
 import com.Projekat.Dostava.service.KomentarService;
+import com.Projekat.Dostava.service.MenadzerService;
 import com.Projekat.Dostava.service.RestoranService;
+import com.Projekat.Dostava.service.SessionService;
 import com.Projekat.Dostava.util.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -24,6 +27,11 @@ public class RestoranRestController {
     @Autowired
     private RestoranService restoranService;
 
+    @Autowired
+    private MenadzerService menadzerService;
+
+    @Autowired
+    private SessionService sessionService;
     @Autowired
     private IRestoranDAO service;
     @Autowired
@@ -70,5 +78,20 @@ public class RestoranRestController {
         RestoranPrikazDto prikazDto = new RestoranPrikazDto(restoran, listaKomentara);
 
         return ResponseEntity.ok(prikazDto);
+    }
+
+    @DeleteMapping("/api/restorani-delete/{id}")
+    public ResponseEntity deleteRestoran(@PathVariable(name = "id") Long id, HttpSession session){
+        Boolean provera = sessionService.validateRole(session, "Admin");
+
+        if(!provera){
+            return new ResponseEntity("Nemate potrebne privilegije!",HttpStatus.BAD_REQUEST);
+        }
+
+        menadzerService.deleteMenadzerRestoran(id);
+        komentarService.deleteKomentarRestoran(id);
+        restoranService.obrisiRestoran(id);
+
+        return ResponseEntity.ok("Uspesno obrisan restoran!");
     }
 }

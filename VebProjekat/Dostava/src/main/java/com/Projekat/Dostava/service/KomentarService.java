@@ -29,4 +29,14 @@ public class KomentarService {
         }
         return listaKomentara;
     }
+
+    public void deleteKomentarRestoran(Long id) {
+        List<Komentar> komentari = this.findAll();
+
+        for (Komentar k : komentari) {
+            if (k.getRestoran().getIdRestoran().equals(id)) {
+                k.setRestoran(null);
+            }
+        }
+    }
 }
