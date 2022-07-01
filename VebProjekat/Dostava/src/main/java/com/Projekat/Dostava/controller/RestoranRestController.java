@@ -1,11 +1,13 @@
 package com.Projekat.Dostava.controller;
 
+import com.Projekat.Dostava.dao.IRestoranDAO;
 import com.Projekat.Dostava.dto.RestoranDto;
 import com.Projekat.Dostava.dto.RestoranPrikazDto;
 import com.Projekat.Dostava.entity.Komentar;
 import com.Projekat.Dostava.entity.Restoran;
 import com.Projekat.Dostava.service.KomentarService;
 import com.Projekat.Dostava.service.RestoranService;
+import com.Projekat.Dostava.util.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +24,8 @@ public class RestoranRestController {
     @Autowired
     private RestoranService restoranService;
 
+    @Autowired
+    private IRestoranDAO service;
     @Autowired
     private KomentarService komentarService;
 
@@ -42,7 +46,7 @@ public class RestoranRestController {
     @GetMapping("api/restorani")
     @ResponseBody
     public ResponseEntity<List<RestoranPrikazDto>> search(@RequestParam(value = "search") String search) {
-        List<SearchCriteria> params = new ArrayList<SearchCriteria>();
+        List<SearchCriteria> params = new ArrayList<>();
         if (search != null) {
             Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
             Matcher matcher = pattern.matcher(search + ",");

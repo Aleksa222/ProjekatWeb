@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface KomentarRepository extends JpaRepository<Komentar,Long> {
-    Optional<List<Komentar>> getByRestoranKomentar(Restoran restoran);
+    Optional<List<Komentar>> getByRestoran(Restoran restoran);
 }
