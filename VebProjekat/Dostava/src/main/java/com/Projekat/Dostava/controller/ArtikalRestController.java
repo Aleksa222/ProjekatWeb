@@ -28,6 +28,7 @@ public class ArtikalRestController {
 
     @PostMapping("/api/artikli/addArtikal")
     public ResponseEntity<Artikal> addArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session) {
+
         if(!sessionService.getRole(session).equals(Enum_uloga.MENADZER)){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
@@ -41,9 +42,8 @@ public class ArtikalRestController {
 
     @PutMapping("/api/artikli/updateArtikal/{id}")
     public ResponseEntity updateArtikal(@PathVariable(name = "id") Long id, @RequestBody ArtikalDto artikalDto, HttpSession session){
-        String role = sessionService.getRole(session);
 
-        if(!role.equals("Menadzer")){
+        if(!sessionService.validateRole(session, "MENADZER")){
             return new ResponseEntity("Nemate potrebne privilegije!",HttpStatus.BAD_REQUEST);
         }
 
@@ -56,10 +56,8 @@ public class ArtikalRestController {
 
     @DeleteMapping("/api/artikli/deleteArtikal/{id}")
     public ResponseEntity deleteArtikal(@PathVariable(name = "id") Long id, HttpSession session){
-        String role = sessionService.getRole(session);
 
-
-        if(!role.equals("Menadzer")){
+        if(!sessionService.validateRole(session, "MENADZER")){
             return new ResponseEntity("Nemate potrebne privilegije!",HttpStatus.BAD_REQUEST);
         }
 

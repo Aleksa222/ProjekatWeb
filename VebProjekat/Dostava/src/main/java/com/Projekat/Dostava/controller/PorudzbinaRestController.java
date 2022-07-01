@@ -1,10 +1,8 @@
 package com.Projekat.Dostava.controller;
 
+import com.Projekat.Dostava.dto.KorpaDto;
 import com.Projekat.Dostava.dto.PorudzbinaDto;
-import com.Projekat.Dostava.entity.Dostavljac;
-import com.Projekat.Dostava.entity.Enum_status;
-import com.Projekat.Dostava.entity.Kupac;
-import com.Projekat.Dostava.entity.Porudzbina;
+import com.Projekat.Dostava.entity.*;
 import com.Projekat.Dostava.service.ArtikalService;
 import com.Projekat.Dostava.service.KorisnikService;
 import com.Projekat.Dostava.service.PorudzbinaService;
@@ -15,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,8 +35,9 @@ public class PorudzbinaRestController {
 
     @GetMapping("api/porudzbine-kupac")
     public ResponseEntity<List<PorudzbinaDto>> getPorudzbineKupac(HttpSession session){
-        Boolean proveraSesije = sessionService.validateRole(session, "Kupac");
+        Boolean proveraSesije = sessionService.validateRole(session, "KUPAC");
 
+        System.out.println(session.getAttribute("role"));
         if(!proveraSesije){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
@@ -59,13 +59,10 @@ public class PorudzbinaRestController {
     }
 
 
-
-
     @GetMapping("api/porudzbine-cekaDostavljaca")
     public ResponseEntity<List<PorudzbinaDto>> getPorudzbineCekaDostavljaca(HttpSession session){
-        Boolean proveraSesije = sessionService.validateRole(session, "Dostavljac");
 
-        if(!proveraSesije){
+        if(!sessionService.validateRole(session, "DOSTAVLJAC")){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
 
@@ -85,9 +82,8 @@ public class PorudzbinaRestController {
     }
     @GetMapping("api/porudzbine-dostavljac")
     public ResponseEntity<List<Porudzbina>> getPorudzbineDostavljac(HttpSession session){
-        Boolean proveraSesije = sessionService.validateRole(session, "Dostavljac");
 
-        if(!proveraSesije){
+        if(!sessionService.validateRole(session, "DOSTAVLJAC")){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
         Dostavljac dostavljac = (Dostavljac) session.getAttribute("user");
@@ -98,5 +94,72 @@ public class PorudzbinaRestController {
 
     }
 
+    @PostMapping("/api/porudzbine-dodajArtikal/{id}")
+    public ResponseEntity dodajUKorpu(@PathVariable Long id, HttpSession session){
+
+        if(!sessionService.validateRole(session, "KUPAC")){
+            return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
+        }
+
+        Artikal artikal = artikalService.findOne(id);
+
+        Kupac kupac = (Kupac) session.getAttribute("user");
+
+        Porudzbina porudzbina = porudzbinaService.findByStatus(kupac, Enum_status.U_KORPI);
+
+        if(!porudzbina.getPoruceno().contains(artikal)) {
+            Artikal_za_Porudzbinu artikal_za_porudzbinu = new Artikal_za_Porudzbinu(artikal, 0);
+            porudzbina.getPoruceno().add(artikal_za_porudzbinu);
+        }else{
+           for(Artikal_za_Porudzbinu a : porudzbina.getPoruceno()){
+              if(a.getArtikal().equals(artikal)){
+                   a.setBroj(a.getBroj() + 1);
+                   break;
+                }
+            }
+       }
+        porudzbina.setKupac(kupac);
+        porudzbina.setCena(artikal.getCena() + porudzbina.getCena());
+        porudzbina.setDatum_i_vreme(LocalDateTime.now());
+        porudzbina.setStatus(Enum_status.U_KORPI);
+        porudzbinaService.save(porudzbina);
+
+        kupac.getPorudzbine().add(porudzbina);
+
+        korisnikService.save(kupac);
+        return new ResponseEntity("Dodat artikal", HttpStatus.OK);
+    }
+
+    @PutMapping("/api/porudzbine-ukloniArtikal/{id}")
+    public ResponseEntity izbaciIzKorpe(@PathVariable Long id, HttpSession session){
+
+        if(!sessionService.validateRole(session,"KUPAC")){
+            return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
+        }
+
+        Kupac kupac = (Kupac) session.getAttribute("user");
+
+        Porudzbina porudzbina = porudzbinaService.findByStatus(kupac, Enum_status.U_KORPI);
+
+        porudzbinaService.ukloniArtikal(porudzbina, kupac, id);
+
+        return new ResponseEntity("Uspesno obrisan artikal", HttpStatus.OK);
+    }
+
+    @GetMapping("/api/porudzbine-pregledKorpe")
+    public ResponseEntity<KorpaDto> pregledKorpe(HttpSession session){
+
+        if(!sessionService.validateRole(session,"KUPAC")){
+            return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
+        }
+
+        Kupac kupac = (Kupac) session.getAttribute("user");
+
+        Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.U_KORPI);
+
+        KorpaDto korpaDto = new KorpaDto(porudzbina);
+
+        return ResponseEntity.ok(korpaDto);
+    }
 
 }

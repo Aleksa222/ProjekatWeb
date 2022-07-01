@@ -81,9 +81,8 @@ public class RestoranRestController {
 
     @DeleteMapping("/api/restorani-delete/{id}")
     public ResponseEntity deleteRestoran(@PathVariable(name = "id") Long id, HttpSession session){
-        Boolean provera = sessionService.validateRole(session, "Admin");
 
-        if(!provera){
+        if(!sessionService.validateRole(session, "ADMIN")){
             return new ResponseEntity("Nemate potrebne privilegije!",HttpStatus.BAD_REQUEST);
         }
 

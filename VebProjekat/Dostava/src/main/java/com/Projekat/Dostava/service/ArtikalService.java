@@ -1,10 +1,7 @@
 package com.Projekat.Dostava.service;
 
 import com.Projekat.Dostava.dto.ArtikalDto;
-import com.Projekat.Dostava.entity.Artikal;
-import com.Projekat.Dostava.entity.Menadzer;
-import com.Projekat.Dostava.entity.Porudzbina;
-import com.Projekat.Dostava.entity.Restoran;
+import com.Projekat.Dostava.entity.*;
 import com.Projekat.Dostava.repository.ArtikalRepository;
 import com.Projekat.Dostava.repository.MenadzerRepository;
 import com.Projekat.Dostava.repository.PorudzbinaRepository;

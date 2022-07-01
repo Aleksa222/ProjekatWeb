@@ -1,8 +1,10 @@
 package com.Projekat.Dostava.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -10,9 +12,12 @@ import java.util.UUID;
 @Entity
 public class Porudzbina implements Serializable {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-
-    private UUID UUID;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private UUID id;
 
     @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private Set<Artikal_za_Porudzbinu> poruceno = new HashSet<>();
@@ -21,9 +26,8 @@ public class Porudzbina implements Serializable {
     @JoinColumn(name = "restoran_id")
     private Restoran restoran;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column
-    private Date datum_i_vreme = new Date();
+    private LocalDateTime datum_i_vreme;
 
     @Column
     private double Cena;
@@ -37,10 +41,13 @@ public class Porudzbina implements Serializable {
     private Enum_status status;
 
 
-    public Porudzbina(){}
+    public Porudzbina(){
+        this.status = Enum_status.U_KORPI;
+        this.datum_i_vreme =  LocalDateTime.now();
+    }
 
-    public Porudzbina(UUID uuid, Set<Artikal_za_Porudzbinu> poruceno, Restoran restoran, Date datum_i_vreme, double cena,Kupac kupac, Enum_status status){
-        this.UUID = uuid;
+
+    public Porudzbina(Set<Artikal_za_Porudzbinu> poruceno, Restoran restoran, LocalDateTime datum_i_vreme, double cena,Kupac kupac, Enum_status status){
         this.poruceno = poruceno;
         this.restoran = restoran;
         this.datum_i_vreme = datum_i_vreme;
@@ -49,12 +56,13 @@ public class Porudzbina implements Serializable {
         this.status = status;
     }
 
-    public UUID getUUID() {
-        return UUID;
+
+    public UUID getId() {
+        return id;
     }
 
-    public void setUUID(UUID UUID) {
-        this.UUID = UUID;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public Set<Artikal_za_Porudzbinu> getPoruceno(){return poruceno;}
@@ -65,11 +73,11 @@ public class Porudzbina implements Serializable {
 
     public void setRestoran(Restoran restoran){this.restoran = restoran;}
 
-    public Date getDatum_i_vreme() {
+    public LocalDateTime getDatum_i_vreme() {
         return datum_i_vreme;
     }
 
-    public void setDatum_i_vreme(Date datum_i_vreme) {
+    public void setDatum_i_vreme(LocalDateTime datum_i_vreme) {
         this.datum_i_vreme = datum_i_vreme;
     }
 

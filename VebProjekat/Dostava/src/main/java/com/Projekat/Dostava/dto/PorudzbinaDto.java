@@ -1,7 +1,10 @@
 package com.Projekat.Dostava.dto;
 
 import com.Projekat.Dostava.entity.*;
+import org.apache.tomcat.jni.Local;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,14 +12,17 @@ import java.util.Set;
 public class PorudzbinaDto {
     Set<Artikal_za_Porudzbinu> poruceniArtikli = new HashSet<>();
     Restoran restoran;
-    Date datumIVreme;
+    String datumIVreme;
     double cena;
     Enum_status status;
     String korisnickoIme;
 
-    public PorudzbinaDto(Set<Artikal_za_Porudzbinu> poruceniArtikli, Restoran restoran, Date datumIVreme, double cena, Enum_status status, String korisnickoIme) {
+    public PorudzbinaDto(Set<Artikal_za_Porudzbinu> poruceniArtikli, Restoran restoran, double cena, Enum_status status, String korisnickoIme) {
         this.poruceniArtikli = poruceniArtikli;
         this.restoran = restoran;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        datumIVreme = dtf.format(now);
         this.datumIVreme = datumIVreme;
         this.cena = cena;
         this.status = status;
@@ -26,7 +32,9 @@ public class PorudzbinaDto {
     public PorudzbinaDto(Porudzbina porudzbina){
         this.poruceniArtikli = porudzbina.getPoruceno();
         this.restoran = porudzbina.getRestoran();
-        this.datumIVreme = porudzbina.getDatum_i_vreme();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        datumIVreme = dtf.format(now);
         this.cena = porudzbina.getCena();
         this.status = porudzbina.getStatus();
         this.korisnickoIme = porudzbina.getKupac().getIme();
@@ -48,11 +56,11 @@ public class PorudzbinaDto {
         this.restoran = restoran;
     }
 
-    public Date getDatumIVreme() {
+    public String getDatumIVreme() {
         return datumIVreme;
     }
 
-    public void setDatumIVreme(Date datumIVreme) {
+    public void setDatumIVreme(String datumIVreme) {
         this.datumIVreme = datumIVreme;
     }
 

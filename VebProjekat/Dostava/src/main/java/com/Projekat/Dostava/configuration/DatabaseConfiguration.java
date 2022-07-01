@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -15,12 +17,17 @@ public class DatabaseConfiguration {
     private KorisnikRepository korisnikRepository;
     @Autowired
     private RestoranRepository restoranRepository;
+
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
     private ArtikalRepository artikalRepository;
+
     @Autowired
     private DostavljacRepository dostavljacRepository;
+
+    @Autowired
+    private KupacRepository kupacRepository;
     @Autowired
     private LokacijaRepository lokacijaRepository;
     @Autowired
@@ -61,8 +68,12 @@ public class DatabaseConfiguration {
 
         Menadzer menadzer = new Menadzer("Loha12","sifra","Uros","Lohinski",Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),restoran);
         menadzerRepository.save(menadzer);
-
         korisnikRepository.save(menadzer);
+
+
+        Kupac kupac = new Kupac("mare", "mare123", "Marko", "Markovic", Enum_pol.MUSKI, new Date(91, Calendar.SEPTEMBER, 14), 20);
+        korisnikRepository.save(kupac);
+        kupacRepository.save(kupac);
 
         return true;
     }

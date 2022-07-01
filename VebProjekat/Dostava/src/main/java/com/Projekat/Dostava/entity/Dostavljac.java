@@ -12,7 +12,7 @@ public class Dostavljac extends Korisnik implements Serializable {
 
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "IdDostavljaca",nullable = false)
+    @JoinColumn(name = "IdDostavljaca")
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
 
