@@ -47,22 +47,22 @@ public class DatabaseConfiguration {
         restoranRepository.save(restoran2);
 
 
-        Artikal artikal = new Artikal("Burito",400,Enum_tip.HRANA,250,"Sjajan Burito");
+        Artikal artikal1 = new Artikal("Burito",400,Enum_tip.HRANA,250,"Sjajan Burito");
         Artikal artikal2 = new Artikal("Crunch Wrap",450,Enum_tip.HRANA,350,"Ukusno");
-        artikalRepository.save(artikal);
+        artikalRepository.save(artikal1);
         artikalRepository.save(artikal2);
+
+        restoran.getArtikli().add(artikal1);
+        restoran.getArtikli().add(artikal2);
+        restoranRepository.save(restoran);
 
         Korisnik korisnik2 = new Korisnik("Korisnik123","Sifra123","Marko","Milosevic",Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),Enum_uloga.DOSTAVLJAC);
         korisnikRepository.save(korisnik2);
+
         Menadzer menadzer = new Menadzer("Loha12","sifra","Uros","Lohinski",Enum_pol.MUSKI,new java.util.Date(System.currentTimeMillis()),restoran);
         menadzerRepository.save(menadzer);
+
         korisnikRepository.save(menadzer);
-
-        artikalRepository.saveAll(List.of(artikal,artikal2));
-
-
-
-
 
         return true;
     }

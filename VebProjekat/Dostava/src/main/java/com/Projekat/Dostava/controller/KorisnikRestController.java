@@ -57,22 +57,6 @@ public class KorisnikRestController {
         return ResponseEntity.ok("Uspesna registracija");
     }
 
-    @PostMapping("/api/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session) {
-        if (loginDto.getKorisnicko_ime().isEmpty() || loginDto.getLozinka().isEmpty()) {
-            return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
-        }
-        Korisnik loggedKorisnik = korisnikService.login(loginDto.getKorisnicko_ime(), loginDto.getLozinka());
-        if (loggedKorisnik == null) {
-            return new ResponseEntity<>("Korisnik ne postoji!", HttpStatus.NOT_FOUND);
-        }
-        session.setAttribute("Korisnik", loggedKorisnik);
-
-
-        return ResponseEntity.ok("Uspesno ste se prijavili!");
-
-    }
-
     @PutMapping("/api/promenaPodataka")
     public ResponseEntity<Korisnik> promenaPodataka(@RequestBody IzmenaPodatakaDto izmenaPodatakaDto,HttpSession session){
         Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
@@ -104,44 +88,5 @@ public class KorisnikRestController {
             return ResponseEntity.ok(izmenjenKorisnik);
         }
     }
-
-    //DEO ZA RESTORANE KOJEM MOGU PRISTUPATI SVI KORISNICI
-
-    @GetMapping("/api/sviRestorani")
-    public ResponseEntity<Set<Restoran>> restorani(){
-        return ResponseEntity.ok(restoranService.restorani());
-    }
-
-    @PostMapping("/api/pretragaRestorana/naziv")
-    public ResponseEntity<Set<Restoran>> restoraninaziv(@RequestParam String naziv,HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
-        if(logged == null){
-            return new ResponseEntity("Morate biti ulogovani za detaljniju pretragu restorana!",HttpStatus.FORBIDDEN);
-        }
-        Set<Restoran> odgovarajuci = restoranService.pretrazipoNazivu(naziv);
-        return ResponseEntity.ok(odgovarajuci);
-    }
-
-    @PostMapping("/api/pretragaRestorana/tip")
-    public ResponseEntity<Set<Restoran>> restorantip(@RequestParam String tip,HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
-        if(logged == null){
-            return new ResponseEntity("Morate biti ulogovani za detaljniju pretragu restorana!",HttpStatus.FORBIDDEN);
-        }
-        Set<Restoran> odgovarajuci = restoranService.pretrazipoTipu(tip);
-        return ResponseEntity.ok(odgovarajuci);
-    }
-
-    @PostMapping("/api/pretragaRestorana/lokacija") //pitati asistenta
-    public ResponseEntity<Set<Restoran>> restoranlokacija(@RequestBody LokacijaDto lokacijaDto, HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
-        if(logged == null){
-            return new ResponseEntity("Morate biti ulogovani za detaljniju pretragu restorana!",HttpStatus.FORBIDDEN);
-        }
-        Lokacija lokacija = new Lokacija(lokacijaDto.getGeografska_sirina(),lokacijaDto.getGeografska_duzina(), lokacijaDto.getAdresa());
-        Set<Restoran> odgovarajuci = restoranService.pretrazipoLokaciji(lokacija);
-        return ResponseEntity.ok(odgovarajuci);
-    }
-
 
 }

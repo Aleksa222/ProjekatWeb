@@ -27,7 +27,7 @@ public class ArtikalRestController {
     private SessionService sessionService;
 
     @PostMapping("/api/artikli/addArtikal")
-    public ResponseEntity<Artikal> addArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session) throws JsonProcessingException {
+    public ResponseEntity<Artikal> addArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session) {
         if(!sessionService.getRole(session).equals(Enum_uloga.MENADZER)){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }

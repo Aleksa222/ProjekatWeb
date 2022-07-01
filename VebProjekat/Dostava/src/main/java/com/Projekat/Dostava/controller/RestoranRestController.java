@@ -37,8 +37,7 @@ public class RestoranRestController {
     @Autowired
     private KomentarService komentarService;
 
-    @GetMapping(value = "api/svi-restorani",
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("api/sviRestorani")
     public ResponseEntity<List<RestoranDto>> getRestorani(){
         List<Restoran> restorani = this.restoranService.findAll();
 

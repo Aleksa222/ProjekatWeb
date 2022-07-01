@@ -34,7 +34,7 @@ public class AdminRestController {
 
     @GetMapping("/api/sviKorisnici")
     public ResponseEntity<Set<Korisnik>> korisnici(HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
+        Korisnik logged = (Korisnik) session.getAttribute("user");
         if(logged.getUloga() != Enum_uloga.ADMIN){
             return new ResponseEntity("Ova funkcionalnost dostupna je samo Adminima.",HttpStatus.FORBIDDEN);
         }
@@ -44,7 +44,7 @@ public class AdminRestController {
 
     @PostMapping("/api/kreirajMenadzera")
     public ResponseEntity<String> kreirajMenadzera(@RequestBody MenadzerDto menadzerDto, HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
+        Korisnik logged = (Korisnik) session.getAttribute("user");
 
         if(logged.getUloga() != Enum_uloga.ADMIN){
             return new ResponseEntity<>("Ova funkcionalnost dostupna je samo Adminima.", HttpStatus.BAD_REQUEST);
@@ -55,7 +55,7 @@ public class AdminRestController {
 
     @PostMapping("/api/kreirajDostavljaca")
     public ResponseEntity<String> kreirajDostavljaca(@RequestBody DostavljacDto dostavljacDto,HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
+        Korisnik logged = (Korisnik) session.getAttribute("user");
 
         if(logged.getUloga() != Enum_uloga.ADMIN){
             return new ResponseEntity<>("Ova funkcionalnost dostupna je samo Adminima.", HttpStatus.BAD_REQUEST);
@@ -66,7 +66,7 @@ public class AdminRestController {
 
     @PostMapping("/api/kreirajRestoran")
     public ResponseEntity<String> kreirajRestoran(@RequestBody RestoranDto restoranDto,HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
+        Korisnik logged = (Korisnik) session.getAttribute("user");
 
         if(logged.getUloga() != Enum_uloga.ADMIN){
             return new ResponseEntity<>("Ova funkcionalnost dostupna je samo Adminima",HttpStatus.BAD_REQUEST);
@@ -77,7 +77,7 @@ public class AdminRestController {
 
     @PostMapping("/api/postaviMenadzera")    
     public ResponseEntity postaviMenadzera(@RequestBody PostavkaMenadzeraDto postavkaMenadzeraDto, HttpSession session){
-        Korisnik logged = (Korisnik) session.getAttribute("Korisnik");
+        Korisnik logged = (Korisnik) session.getAttribute("user");
 
         if(logged.getUloga() != Enum_uloga.ADMIN){
             return new ResponseEntity<>("Ova funkcionalnost dostupna je samo Adminima",HttpStatus.BAD_REQUEST);

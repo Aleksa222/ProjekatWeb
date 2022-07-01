@@ -26,6 +26,7 @@ public class RestoranDto {
     public RestoranDto(Restoran restoran) {
         this.Naziv = restoran.getNaziv();
         this.Tip_restorana = restoran.getTip_restorana();
+        this.artikli = restoran.getArtikli();
         this.lokacija = restoran.getLokacija();
     }
 
@@ -59,5 +60,15 @@ public class RestoranDto {
 
     public void setLokacija(Lokacija lokacija) {
         this.lokacija = lokacija;
+    }
+
+    @Override
+    public String toString() {
+        return "RestoranDto{" +
+                "Naziv='" + Naziv + '\'' +
+                ", Tip_restorana='" + Tip_restorana + '\'' +
+                ", artikli=" + artikli +
+                ", lokacija=" + lokacija +
+                '}';
     }
 }
