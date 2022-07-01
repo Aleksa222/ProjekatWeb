@@ -51,9 +51,11 @@ public class PorudzbinaService {
                 }else{
                     porudzbina.getPoruceno().remove(a);
                 }
+                porudzbina.setCena(porudzbina.getCena() - a.getArtikal().getCena());
                 break;
             }
         }
+
 
         porudzbinaRepository.save(porudzbina);
 

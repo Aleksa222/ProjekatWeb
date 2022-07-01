@@ -35,10 +35,8 @@ public class PorudzbinaRestController {
 
     @GetMapping("api/porudzbine-kupac")
     public ResponseEntity<List<PorudzbinaDto>> getPorudzbineKupac(HttpSession session){
-        Boolean proveraSesije = sessionService.validateRole(session, "KUPAC");
 
-        System.out.println(session.getAttribute("role"));
-        if(!proveraSesije){
+        if(!sessionService.validateRole(session, "KUPAC")){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
 
@@ -160,6 +158,26 @@ public class PorudzbinaRestController {
         KorpaDto korpaDto = new KorpaDto(porudzbina);
 
         return ResponseEntity.ok(korpaDto);
+    }
+
+    @PutMapping("/api/porudzbine-poruci")
+    public ResponseEntity poruci(HttpSession session){
+
+        if(!sessionService.validateRole(session,"Kupac")){
+            return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
+        }
+
+        Kupac kupac = (Kupac) session.getAttribute("user");
+
+        Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.U_KORPI);
+
+        porudzbina.setStatus(Enum_status.OBRADA);
+
+
+        porudzbinaService.save(porudzbina);
+        korisnikService.save(kupac);
+
+        return new ResponseEntity("Uspesno poruceno.", HttpStatus.OK);
     }
 
 }
