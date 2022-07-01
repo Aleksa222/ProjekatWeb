@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -19,9 +21,19 @@ public class RestoranService {
         return restoran;
     }
 
+    public List<Restoran> findAll(){
+        return restoranRepository.findAll();
+    }
     public Set<Restoran> restorani(){
         Set<Restoran> restorani = new HashSet<>(restoranRepository.findAll());
         return restorani;
+    }
+
+    public Restoran pronadjiJedan(Long id){
+        Optional<Restoran> pronadjenRestoran = restoranRepository.findById(id);
+        if (pronadjenRestoran.isPresent())
+            return pronadjenRestoran.get();
+        return null;
     }
 
     public Set<Restoran> pretrazipoNazivu(String naziv){

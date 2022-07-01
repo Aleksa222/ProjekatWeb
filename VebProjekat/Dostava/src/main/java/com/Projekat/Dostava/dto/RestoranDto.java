@@ -2,6 +2,7 @@ package com.Projekat.Dostava.dto;
 
 import com.Projekat.Dostava.entity.Artikal;
 import com.Projekat.Dostava.entity.Lokacija;
+import com.Projekat.Dostava.entity.Restoran;
 
 import java.util.Set;
 
@@ -20,6 +21,12 @@ public class RestoranDto {
         Tip_restorana = tip_restorana;
         this.artikli = artikli;
         this.lokacija = lokacija;
+    }
+
+    public RestoranDto(Restoran restoran) {
+        this.Naziv = restoran.getNaziv();
+        this.Tip_restorana = restoran.getTip_restorana();
+        this.lokacija = restoran.getLokacija();
     }
 
     public String getNaziv() {
