@@ -12,7 +12,6 @@ import com.Projekat.Dostava.service.SessionService;
 import com.Projekat.Dostava.util.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,7 +86,7 @@ public class RestoranRestController {
         }
 
         menadzerService.deleteMenadzerRestoran(id);
-        komentarService.deleteKomentarRestoran(id);
+      //  komentarService.deleteKomentarRestoran(id);
         restoranService.obrisiRestoran(id);
 
         return ResponseEntity.ok("Uspesno obrisan restoran!");

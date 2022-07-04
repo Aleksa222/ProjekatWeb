@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -163,7 +161,7 @@ public class PorudzbinaRestController {
     @PutMapping("/api/porudzbine-poruci")
     public ResponseEntity poruci(HttpSession session){
 
-        if(!sessionService.validateRole(session,"Kupac")){
+        if(!sessionService.validateRole(session,"KUPAC")){
             return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
 
@@ -183,7 +181,7 @@ public class PorudzbinaRestController {
     @PutMapping("/api/porudzbine-menadzerStatus")
     public ResponseEntity priprema(@RequestParam("korisnicko_ime") String korisnickoIme, HttpSession session){
 
-        if(!sessionService.validateRole(session,"Menadzer")){
+        if(!sessionService.validateRole(session,"MENADZER")){
             return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
 
@@ -207,7 +205,7 @@ public class PorudzbinaRestController {
     @PutMapping("/api/porudzbine-dostavljacStatus")
     public ResponseEntity preuzmiPorudzbinu(HttpSession session, @RequestParam("korisnicko_ime") String korisnickoIme){
 
-        if(!sessionService.validateRole(session,"Dostavljac")){
+        if(!sessionService.validateRole(session,"DOSTAVLJAC")){
             return  new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
 
@@ -220,7 +218,7 @@ public class PorudzbinaRestController {
             korisnikService.save(kupac);
             return new ResponseEntity("Porudzbina je u transportu.", HttpStatus.OK);
         }
-            Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.U_PRIPREMI);
+            Porudzbina porudzbina = porudzbinaService.findByStatus(kupac,Enum_status.U_TRANSPORTU);
             porudzbina.setStatus(Enum_status.DOSTAVLJENA);
             porudzbinaService.save(porudzbina);
             kupac.setBroj_bodova((int) (kupac.getBroj_bodova() + (porudzbina.getCena() / 1000) * 133));

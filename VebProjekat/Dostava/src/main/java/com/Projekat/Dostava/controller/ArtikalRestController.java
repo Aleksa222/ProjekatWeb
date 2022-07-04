@@ -2,19 +2,14 @@ package com.Projekat.Dostava.controller;
 
 import com.Projekat.Dostava.dto.ArtikalDto;
 import com.Projekat.Dostava.entity.Artikal;
-import com.Projekat.Dostava.entity.Enum_uloga;
 import com.Projekat.Dostava.entity.Menadzer;
 import com.Projekat.Dostava.entity.Restoran;
 import com.Projekat.Dostava.service.ArtikalService;
 import com.Projekat.Dostava.service.SessionService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,7 +24,7 @@ public class ArtikalRestController {
     @PostMapping("/api/artikli/addArtikal")
     public ResponseEntity<Artikal> addArtikal(@RequestBody ArtikalDto artikalDto, HttpSession session) {
 
-        if(!sessionService.getRole(session).equals(Enum_uloga.MENADZER)){
+        if(!sessionService.validateRole(session, "MENADZER")){
             return new ResponseEntity("Nemate potrebne privilegije!", HttpStatus.BAD_REQUEST);
         }
 

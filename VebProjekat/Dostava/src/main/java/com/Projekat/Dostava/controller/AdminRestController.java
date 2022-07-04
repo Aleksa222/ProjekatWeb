@@ -15,7 +15,10 @@ import com.Projekat.Dostava.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.Set;
@@ -30,6 +33,7 @@ public class AdminRestController {
     private MenadzerService menadzerService;
     @Autowired
     private MenadzerRepository menadzerRepository;
+
 
 
     @GetMapping("/api/sviKorisnici")
@@ -90,6 +94,7 @@ public class AdminRestController {
         Menadzer menadzer = menadzerService.nadjiMenadzera(postavkaMenadzeraDto.getKorisnicko());
         menadzer.setRestoran(restoran);
         menadzerRepository.save(menadzer);
+
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Uspesno je postavljen novi Menadzer restorana!");
     }
